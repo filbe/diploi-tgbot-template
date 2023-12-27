@@ -1,7 +1,7 @@
 diploiTemplateVersion: V1.0
-name: diploi-nextjs-todo
-description: A starter template for Next.js
-defaultName: Next.js ToDo
+name: telegram-bot
+description: Telegram Bot on Diploi
+defaultName: Telegram Bot ToDo
 
 stages:
   - name: Development
@@ -14,41 +14,10 @@ stages:
 contexts:
   - name: app
     identifier: app
-  - name: postgres
-    identifier: postgres
-
-parameterGroups:
-  - name: PostgreSQL Database
-    identifier: postgres
-    toggleable: true
-    description: Database connection info
-    defaultValue: TRUE
-    parameters:
-      - name: Host
-        identifier: POSTGRES_HOST
-        defaultValue: postgres
-        type: string
-      - name: Port
-        identifier: POSTGRES_PORT
-        defaultValue: 5432
-        type: integer
-      - name: User
-        identifier: POSTGRES_USER
-        defaultValue: postgres
-        type: string
-        contexts: label=postgres,label=app
-      - name: Password
-        identifier: POSTGRES_PASSWORD
-        defaultValue: postgres
-        type: secret
-      - name: Schema
-        identifier: POSTGRES_DB
-        defaultValue: todo
-        type: string
 
 environmentVariables:
-  - identifier: SUBTITLE
-    defaultValue: This text comes from an environment variable
+  - identifier: TG_BOT_API_KEY
+    defaultValue: xxxxxxxx
     type: string
     contexts: label=app
 
@@ -75,23 +44,17 @@ ssh:
     stages:
       - staging
 logs:
-  - identifier: www-log
-    name: Next.js Log
+  - identifier: tgbot-log
+    name: TGBOT Log
     labelSelector: app=app
-    command: tail -n 2000 -F /var/log/www.log
-
-actions:
-  - identifier: nextjs-restart
-    name: Restart Next.js
-    labelSelector: app=app
-    command: supervisord restart www
+    command: tail -n 2000 -F /var/log/tgbot.log
 
 images:
   - identifier: app
     repository: app
     dockerfile: Dockerfile
-    image: ghcr.io/nemesysltd/diploi-nextjs-psql-template
-    initialProjectImage: ghcr.io/diploi/nextjs-postgresql-template-arm64-initial-project
+    image: ghcr.io/filbe/diploi-tgbot-template
+    initialProjectImage: ghcr.io/filbe/diploi-tgbot-template
     stages:
       - development
       - production
@@ -103,13 +66,7 @@ storage:
   - identifier: app
     stages:
       - development
-    sizeMiB: 6144
-  - identifier: postgres
-    stages:
-      - production
-      - staging
-      - development
-    sizeMiB: 4096
+    sizeMiB: 1000
 
 status:
   url: http://app:3000/status

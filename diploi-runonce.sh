@@ -36,26 +36,6 @@ if [ ! "$(ls -A /app)" ]; then
   git checkout -f $REPOSITORY_BRANCH;
   git remote set-url origin "$REPOSITORY_URL";
   git config --unset credential.helper;
-  
-  # Configure the SQLTools VSCode extension
-  # TODO: How to update these if env changes?
-  cat > /app/.vscode/settings.json << EOL
-{
-  "sqltools.connections": [
-    {
-      "previewLimit": 50,
-      "server": "$POSTGRES_HOST",
-      "port": $POSTGRES_PORT,
-      "driver": "PostgreSQL",
-      "name": "PostgreSQL",
-      "database": "$POSTGRES_DB",
-      "username": "$POSTGRES_USER",
-      "password": "$POSTGRES_PASSWORD",
-    }
-  ]
-}
-EOL
-
   progress "Installing";
   npm install;
 
@@ -67,12 +47,8 @@ update-ca-certificates
 # Make all special env variables available in ssh also (ssh will wipe out env by default)
 env >> /etc/environment
 
-# Seed database
-# NOTE! Not ideal, this assumes postgres starts faster than app container
-node /app/lib/seedDatabase.js
-
 # Now that everything is initialized, start all services
-supervisorctl start www
+supervisorctl start tgbot
 
 progress "Runonce done";
 

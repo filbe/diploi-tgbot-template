@@ -30,8 +30,6 @@ spec:
       terminationGracePeriodSeconds: 10
       imagePullSecrets:
         - name: diploi-pull-secret
-      #priorityClassName: {{ .Values.stage }} # disabled temporarily as old cores doesn't support this
-      #fix this by manualy kubectl apply -f [priorityclassesfile] in core code!
       containers:
         - name: app
           image: {{ .Values.images.app }}
@@ -39,52 +37,6 @@ spec:
           ports:
             - containerPort: 80
             - containerPort: 3000
-          #startupProbe:
-          #  exec:
-          #    command:
-          #    - cat
-          #    - /tmp/pod-ready
-          #  initialDelaySeconds: 30
-          #  periodSeconds: 5
-          #  timeoutSeconds: 1
-          #  successThreshold: 1
-          #  failureThreshold: 10
-          #  #terminationGracePeriodSeconds: 10 #inherited from pod level
-          #livenessProbe:
-          #  exec:
-          #    command:
-          #    - cat
-          #    - /tmp/pod-ready
-          #  initialDelaySeconds: 5
-          #  periodSeconds: 5
-          #  timeoutSeconds: 1
-          #  successThreshold: 1
-          #  failureThreshold: 2
-          #  #terminationGracePeriodSeconds: 10 #inherited from pod level
-          #readinessProbe:
-          #  exec:
-          #    command:
-          #    - cat
-          #    - /tmp/pod-ready
-          #  initialDelaySeconds: 20
-          #  periodSeconds: 5
-          #  timeoutSeconds: 1
-          #  successThreshold: 1
-          #  failureThreshold: 2
-          #  #terminationGracePeriodSeconds: 10 #inherited from pod level
-          {{- if eq .Values.stage "development"}}
-          resources:
-            requests:
-              memory: 1500Mi
-            limits:
-              memory: 2000Mi
-          {{- else }}
-          resources:
-            requests:
-              memory: 500Mi
-            limits:
-              memory: 1000Mi
-          {{- end }}
           env:
             {{ range $key, $val := .Values.parameterGroupsEnabled }}
             {{ if $val }}

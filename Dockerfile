@@ -7,9 +7,6 @@ FROM node:20.3.0-slim
 # Update basic packages
 RUN apt-get update && apt-get install -y nano supervisor openssh-server git bash wget curl locales libc6 libstdc++6 python-is-python3 ca-certificates tar
 
-# Install PostgreSQL client
-RUN apt-get install -y postgresql-client
-
 # SSH keys and some login related stuff (some work only for prod)
 RUN mkdir -p /run/sshd /root/.ssh \
   && chmod 0700 /root/.ssh \
@@ -17,7 +14,7 @@ RUN mkdir -p /run/sshd /root/.ssh \
   && sed -i s/^#PasswordAuthentication\ yes/PasswordAuthentication\ no/ /etc/ssh/sshd_config \
   && sed -i s/root:!/"root:*"/g /etc/shadow \
   # Welcome message
-  && echo "Welcome to Diploi!" > /etc/motd \
+  && echo "Welcome to Telegram Bot App (Diploi)!" > /etc/motd \
   # Go to app folder by default
   && echo "cd /app;" >> /root/.bashrc
 
