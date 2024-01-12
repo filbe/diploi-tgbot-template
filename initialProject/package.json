@@ -1,6 +1,6 @@
 {
-  "name": "diploi-tiny-project",
-  "version": "0.1.0",
+  "name": "diploi-tgbot-openai-project",
+  "version": "0.9.0",
   "scripts": {
     "makedb": "touch ./tgbot.db",
     "dev": "ts-node-dev src/app.ts",
