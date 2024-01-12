@@ -47,9 +47,6 @@ update-ca-certificates
 # Make all special env variables available in ssh also (ssh will wipe out env by default)
 env >> /etc/environment
 
-# Now that everything is initialized, start all services
-supervisorctl start tgbot
-
 progress "Runonce done";
 
 exit 0;
