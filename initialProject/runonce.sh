@@ -6,6 +6,9 @@ progress() {
   echo "🟩 $current_date $action"
 }
 
+# Perform tasks at controller pod startup
+progress "Runonce started";
+
 # Now that everything is initialized, start all services
 supervisorctl start tgbot
 
