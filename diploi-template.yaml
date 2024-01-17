@@ -17,8 +17,12 @@ contexts:
 
 environmentVariables:
   - identifier: TG_BOT_API_KEY
-    defaultValue: xxxxxxxx
-    type: string
+    defaultValue: xxx
+    type: secret
+    contexts: label=app
+  - identifier: OPENAI_API_KEY
+    defaultValue: xxx
+    type: secret
     contexts: label=app
 
 repositories:
