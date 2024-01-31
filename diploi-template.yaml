@@ -6,10 +6,13 @@ defaultName: Telegram Bot
 stages:
   - name: Development
     identifier: development
+    disableConfirmation: true
   - name: Staging
     identifier: staging
+    disableConfirmation: true
   - name: Production
     identifier: production
+    disableConfirmation: true
 
 contexts:
   - name: app
