@@ -36,6 +36,16 @@ if [ ! "$(ls -A /app)" ]; then
   git checkout -f $REPOSITORY_BRANCH;
   git remote set-url origin "$REPOSITORY_URL";
   git config --unset credential.helper;
+
+
+  # Configure the SQLTools VSCode extension
+  # TODO: How to update these if env changes?
+  mkdir -p /root/.local/share/code-server/User
+  cp /usr/local/etc/diploi-vscode-settings.json /root/.local/share/code-server/User/settings.json
+
+
+
+
   progress "Installing";
   npm install;
 
