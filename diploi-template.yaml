@@ -76,3 +76,10 @@ storage:
 
 status:
   url: http://app:3000/status
+editors:
+  - name: App
+    identifier: app
+    service: app
+    port: 12164
+    stages:
+      - development

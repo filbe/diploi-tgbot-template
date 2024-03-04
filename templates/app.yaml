@@ -37,6 +37,7 @@ spec:
           ports:
             - containerPort: 80
             - containerPort: 3000
+            - containerPort: 12164
           env:
             {{ range $key, $val := .Values.parameterGroupsEnabled }}
             {{ if $val }}

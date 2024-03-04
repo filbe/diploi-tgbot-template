@@ -47,6 +47,7 @@ update-ca-certificates
 # Make all special env variables available in ssh also (ssh will wipe out env by default)
 env >> /etc/environment
 
+supervisorctl start code-server
 progress "Runonce done";
 
 exit 0;
